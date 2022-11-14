@@ -6,9 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js",
-    "start:production": "node app.js",
-    "start:dev": "NODE_ENV=dev nodemon app.js",
-    "start:test": "NODE_ENV=test nodemon app.js"
+    "start:production": "node back-end/api.js",
+    "start:dev": "NODE_ENV=dev nodemon back-end/api.js",
+    "start:test": "NODE_ENV=test nodemon back-end/api.js"
   },
   "repository": {
     "type": "git",
