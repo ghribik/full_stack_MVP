@@ -1,3 +1,7 @@
+body {
+  background-color: black;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -19,21 +23,23 @@
   .sidebar {
     float: left;
     width: 200px;
-    height: 300px;
+    height: 250px;
     background-color: #F09A9D;    /* Red */
   }
   
   .content {
     float: left;
-    width: 650px;
-    height: 500px;
+    width: 700px;
+    height: 250px;
     background-color: #F5CF8E;    /* Yellow */
   }
   
   .footer {
     clear: both;
-    height: 200px;
-    background-color: #D6E9FE;    /* Light blue */
+    width: 900px;
+    margin: 0 auto;
+    overflow: hidden;
+    background-color: #0c6ad6;    /* Light blue */
   }
 
   .column {
