@@ -56,6 +56,7 @@ const create = document.getElementById('create').addEventListener("click", event
         "track_num": songPromptArr[3],
         "playlist_id": songPromptArr[4]
     };
+
     fetch(`${ApiUrl}/api/songs/`, {
         method: 'POST',
         mode: "cors",
@@ -63,9 +64,7 @@ const create = document.getElementById('create').addEventListener("click", event
         body: JSON.stringify(song)
     })
     .then(response => {
-        response.json()
-    })
-    .then(songs => {
+        let songs = response.json();
         if(songs){
             let song = songs[0];
             let songElement = document.createElement('li');
