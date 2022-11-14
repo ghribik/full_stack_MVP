@@ -23,24 +23,23 @@ const read = document.getElementById('read').addEventListener("click", event => 
         })
     }else{
         fetch(`${ApiUrl}/api/songs/${readSongsPrompt}`)
-        .then(response => {
-            response.json()
-        })
+        .then(response => response.json())
         .then(songs => {
             if(songs){
-                let song = songs[0];
+                let song = songs[0]
                 let songElement = document.createElement('li');
                 songElement.innerHTML = `ID: ${song.id}, 
                 Title: ${song.title}, 
                 Artist: ${song.artist}, 
                 Album: ${song.album}, 
                 Track:${song.track_num}, 
-                Playlist: ${song.playlist_id}`;
-                content.appendChild(songElement);
+                Playlist: ${song.playlist_id}`
+                content.appendChild(songElement)
             }else{
                 alert("Song data parameters missing or improperly formatted!");
-            }
+            };
         })
+        .catch(err => console.error(err))
     };
 });
 
@@ -63,22 +62,23 @@ const create = document.getElementById('create').addEventListener("click", event
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(song)
     })
-    .then(response => {
-        let songs = response.json();
+    .then(response => response.json())
+    .then(songs => {
         if(songs){
-            let song = songs[0];
+            let song = songs[0]
             let songElement = document.createElement('li');
             songElement.innerHTML = `ID: ${song.id}, 
             Title: ${song.title}, 
             Artist: ${song.artist}, 
             Album: ${song.album}, 
             Track:${song.track_num}, 
-            Playlist: ${song.playlist_id}`;
-            content.appendChild(songElement);
+            Playlist: ${song.playlist_id}`
+            content.appendChild(songElement)
         }else{
             alert("Song data parameters missing or improperly formatted!");
-        }
+        };
     })
+    .catch(err => console.error(err))
 });
 
 //PATCH --- Update data for a specific song by id
