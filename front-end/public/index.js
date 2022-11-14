@@ -1,6 +1,6 @@
 //const ENV = "production";
 const ENV = "production";
-const ApiUrl = ENV == "dev" ? "http://localhost:3001" : "https://api-server-1z4a.onrender.com";
+const ApiUrl = ENV == "dev" ? "http://localhost:3001" : "https://api-server-qr13.onrender.com";
 
 //GET --- read and display song information for all songs or by ID
 const read = document.getElementById('read').addEventListener("click", event => {
