@@ -1,16 +1,20 @@
 {
   "name": "full_stack_mvp",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Node.js and express on Docker",
+  "main": "api.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js",
+    "start:production": "node app.js",
+    "start:dev": "NODE_ENV=dev nodemon app.js",
+    "start:test": "NODE_ENV=test nodemon app.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ghribik/full_stack_MVP.git"
   },
-  "author": "",
+  "author": "Gabe Hribik",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ghribik/full_stack_MVP/issues"
