@@ -11,6 +11,24 @@ const read = document.getElementById('read').addEventListener("click", event => 
         .then(response => response.json())
         .then(data => {
             data.forEach(song => {
+                let songElement = document.createElement('li')
+                songElement.innerHTML = `ID: ${song.id}, 
+                Title: ${song.title}, 
+                Artist: ${song.artist}, 
+                Album: ${song.album}, 
+                Track:${song.track_num}, 
+                Playlist: ${song.playlist_id}`;
+                content.appendChild(songElement)
+            })
+        })
+    }else{
+        fetch(`${ApiUrl}/api/songs/${readSongsPrompt}`)
+        .then(response => {
+            response.json()
+        })
+        .then(songs => {
+            if(songs){
+                let song = songs[0];
                 let songElement = document.createElement('li');
                 songElement.innerHTML = `ID: ${song.id}, 
                 Title: ${song.title}, 
@@ -19,23 +37,9 @@ const read = document.getElementById('read').addEventListener("click", event => 
                 Track:${song.track_num}, 
                 Playlist: ${song.playlist_id}`;
                 content.appendChild(songElement);
-            });
-        });
-    }else{
-        fetch(`${ApiUrl}/api/songs/${readSongsPrompt}`)
-        .then(response => {
-            if(response.status === 404) {
-                alert("Song ID not found or improperly formatted!");
             }else{
-                response.json();
-            };
-        })
-        .then(data => {
-            data.forEach(song => {
-                let songElement = document.createElement('li');
-                songElement.innerHTML = `Title: ${song.title}, Artist: ${song.artist}, Album: ${song.album}, Track:${song.track_num}, Playlist: ${song.playlist_id}`;
-                content.appendChild(songElement);
-            });
+                alert("Song data parameters missing or improperly formatted!");
+            }
         })
     };
 });
@@ -59,13 +63,9 @@ const create = document.getElementById('create').addEventListener("click", event
         body: JSON.stringify(song)
     })
     .then(response => {
-        if(response.status === 500) {
-            alert("Song data missing or improperly formatted!");
-        }else{
-            response.json();
-        };
+        response.json()
     })
-    .then(songs => { 
+    .then(songs => {
         if(songs){
             let song = songs[0];
             let songElement = document.createElement('li');
@@ -77,10 +77,9 @@ const create = document.getElementById('create').addEventListener("click", event
             Playlist: ${song.playlist_id}`;
             content.appendChild(songElement);
         }else{
-            alert("Song data parameters missing or improperly formatted!", response);
-        };
+            alert("Song data parameters missing or improperly formatted!");
+        }
     })
-    .catch(err => console.error(err));
 });
 
 //PATCH --- Update data for a specific song by id
@@ -103,9 +102,9 @@ const patch = document.getElementById('update').addEventListener("click", event 
         body: JSON.stringify(song)
     })
     .then(response => {
-        if(song === 201){
+        if(response.status === 201){
             let songElement = document.createElement('li');
-            songElement.innerHTML = `ID: ${id}, 
+            songElement.innerHTML = `ID: ${updateSongPromptID}, 
             Title: ${song.title}, 
             Artist: ${song.artist}, 
             Album: ${song.album}, 
@@ -113,7 +112,7 @@ const patch = document.getElementById('update').addEventListener("click", event 
             Playlist: ${song.playlist_id}`;
             content.appendChild(songElement);
         }else{
-            alert("Song data parameters missing or improperly formatted!", response);
+            alert("Song data parameters missing or improperly formatted!");
         };
     })
     .catch(err => console.error(err));
