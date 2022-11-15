@@ -5,8 +5,9 @@ const ApiUrl = ENV == "dev" ? "http://localhost:3001" : "https://api-server-qr13
 //GET --- read and display song information for all songs or by ID
 const read = document.getElementById('read').addEventListener("click", event => {
     clearBox("content");
-    let readSongsPrompt = window.prompt("Enter song ID or leave blank to see all songs");
-    if(readSongsPrompt === ""){
+    //let readSongsPrompt = window.prompt("Enter song ID or leave blank to see all songs");
+    let songID = document.getElementById('songID').value;
+    if(songID === ""){
         fetch(`${ApiUrl}/api/songs`)
         .then(response => response.json())
         .then(data => {
@@ -22,7 +23,7 @@ const read = document.getElementById('read').addEventListener("click", event => 
             })
         })
     }else{
-        fetch(`${ApiUrl}/api/songs/${readSongsPrompt}`)
+        fetch(`${ApiUrl}/api/songs/${songID}`)
         .then(response => response.json())
         .then(songs => {
             if(songs){
@@ -124,17 +125,23 @@ const create = document.getElementById('create').addEventListener("click", event
 //PATCH --- Update data for a specific song by id
 const patch = document.getElementById('update').addEventListener("click", event => {
     clearBox("content");
-    let updateSongPromptID = window.prompt("Enter song ID to edit:", "1");
-    let updateSongPrompt = window.prompt("Enter song data formatted like below:", "title, artist, album, track, playlist");
-    let songPromptArr = updateSongPrompt.split(", ");
+    //let updateSongPromptID = window.prompt("Enter song ID to edit:", "1");
+    //let updateSongPrompt = window.prompt("Enter song data formatted like below:", "title, artist, album, track, playlist");
+    //let songPromptArr = updateSongPrompt.split(", ");
+    let songID = document.getElementById('songID').value;
+    let songTitle = document.getElementById('songTitle').value;
+    let songArtist = document.getElementById('songArtist').value;
+    let songAlbum = document.getElementById('songAlbum').value;
+    let songTrackNum = document.getElementById('songTrackNum').value;
+    let playlistID = document.getElementById('playlistID').value;
     let song = {
-        "title": songPromptArr[0],
-        "artist": songPromptArr[1],
-        "album": songPromptArr[2],
-        "track_num": songPromptArr[3],
-        "playlist_id": songPromptArr[4]
+        "title": songTitle,
+        "artist": songArtist,
+        "album": songAlbum,
+        "track_num": songTrackNum,
+        "playlist_id": playlistID
     };
-    fetch(`${ApiUrl}/api/songs/${updateSongPromptID}`, {
+    fetch(`${ApiUrl}/api/songs/${songID}`, {
         method: 'PATCH',
         mode: "cors",
         headers: { 'Content-Type': 'application/json' },
@@ -163,8 +170,9 @@ const patch = document.getElementById('update').addEventListener("click", event 
 //DELETE --- Delete a song from the database by id
 const deleteSong = document.getElementById('delete').addEventListener("click", event => {
     clearBox("content");
-    let deleteSongPrompt = window.prompt("Enter song ID");
-     fetch(`${ApiUrl}/api/songs/${deleteSongPrompt}`, {
+    //let deleteSongPrompt = window.prompt("Enter song ID");
+    let songID = document.getElementById('songID').value;
+     fetch(`${ApiUrl}/api/songs/${songID}`, {
          method: 'DELETE',
          mode: "cors",
      })
