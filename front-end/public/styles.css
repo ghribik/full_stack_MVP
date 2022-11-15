@@ -2,6 +2,32 @@ body {
   background-color: black;
 }
 
+form {
+  background-color: #4717F6;
+  width: 300px;
+  height: 44px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+input {
+  all: unset;
+  font: 16px system-ui;
+  color: #fff;
+  height: 100%;
+  width: 100%;
+  padding: 6px 10px;
+}
+
+button {
+  background-color: #A239CA;
+  height: 40px;
+  width: 200px;
+  color: white;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -10,44 +36,35 @@ body {
 
   .page {
     width: 900px;
-    margin: 0 auto;
-    overflow: hidden;
-    background-color: #eaedf0;
+    height: 500px;
+    background-color: #E7DFDD;
   }
 
   .menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 100px;
-    background-color: #B2D6FF;    /* Medium blue */
+    width: 900px;
+    background-image: url("https://cdn.pixabay.com/photo/2014/04/04/14/56/background-313415_960_720.jpg");    /* Medium blue */
+    background-size: contain;
   }
   
   .sidebar {
     float: left;
     width: 200px;
-    height: 250px;
-    background-color: #F09A9D;    /* Red */
+    height: 400px;
+    background-color: #4717F6;    /* Red */
   }
   
   .content {
     float: left;
-    width: 700px;
-    height: 250px;
-    background-color: #F5CF8E;    /* Yellow */
   }
   
-  .footer {
-    clear: both;
+  #footer {
     width: 900px;
-    margin: 0 auto;
-    overflow: hidden;
-    background-color: #0c6ad6;    /* Light blue */
-  }
-
-  .column {
-    float: left;
-    width: 31%;
-    margin: 20px 1.15%;
-    height: 160px;
-    background-color: #B2D6FF;    /* Medium blue */
+    height: auto;
+    background-color: white;    /* Light blue */
   }
 
   .column {
@@ -59,8 +76,23 @@ body {
   }
 
   .CRUD {
-    width: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin: 10px auto;
     height: 40px;
-    background-color: #bd9a1d;    /* Medium blue */
+    background-color: #4717F6;    /* Medium blue */
+  }
+
+  .card {
+    /* Add shadows to create the "card" effect */
+    background-color: white;
+    float: left;
+    width:300px;
+  }
+  
+  
+  /* Add some padding inside the card container */
+  .container {
+    padding: 2px 16px;
   }

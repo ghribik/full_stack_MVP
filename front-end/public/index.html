@@ -8,7 +8,12 @@
   </head>
   <body>
     <div class='page'>
-      <div class='menu'>Inputs</div>
+      <div class='menu'>
+        <form id="form"> 
+          <input type="search" id="query" name="q" placeholder="Search...">
+          <button id="search">Search</button>
+        </form>
+      </div>
       <div class='sidebar'>
         <ul>
             <div class='CRUD'><button id="create">CREATE</button></div>
@@ -18,14 +23,8 @@
         </ul>
       </div>
       <div id='content'>Content</div>
-      <div class='footer'>
-            <div class='column'></div>
-            <div class='column'></div>
-            <div class='column'></div>
-            <div class='column'></div>
-            <div class='column'></div>
-            <div class='column'></div>
-      </div>
+    </div>
+    <div id='footer'>
     </div>
   </body>
 </html>
