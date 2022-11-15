@@ -1,4 +1,4 @@
-//const ENV = "production";
+//const ENV = "dev";
 const ENV = "production";
 const ApiUrl = ENV == "dev" ? "http://localhost:3001" : "https://api-server-qr13.onrender.com";
 
@@ -127,6 +127,8 @@ const patch = document.getElementById('update').addEventListener("click", event 
     let songAlbum = document.getElementById('songAlbum').value;
     let songTrackNum = document.getElementById('songTrackNum').value;
     let playlistID = document.getElementById('playlistID').value;
+
+
     let song = {
         "title": songTitle,
         "artist": songArtist,
@@ -134,6 +136,14 @@ const patch = document.getElementById('update').addEventListener("click", event 
         "track_num": songTrackNum,
         "playlist_id": playlistID
     };
+
+    for(let key in song){
+        if(song[key] === ""){
+            delete song[key];       
+        };
+    };
+    console.log(song);
+
     fetch(`${ApiUrl}/api/songs/${songID}`, {
         method: 'PATCH',
         mode: "cors",
