@@ -40,7 +40,8 @@ const read = document.getElementById('read').addEventListener("click", event => 
             };
         })
         .catch(error => {
-            if(error.response) console.log(error.response.data);
+            console.error(error);
+            alert("Song data parameters missing or improperly formatted!");
         })
     };
 });
