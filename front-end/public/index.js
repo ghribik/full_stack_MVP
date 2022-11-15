@@ -46,7 +46,7 @@ const read = document.getElementById('read').addEventListener("click", event => 
     };
 });
 
-//GET -- retrieve songs from a specific playlist by creator name
+//GET -- retrieve songs from a specific playlist by playlist id
 const playlists = document.getElementById('playlist').addEventListener("click", event => {
     clearBox("content");
     let readPlaylistsPrompt = window.prompt("Enter playlist ID");
@@ -74,7 +74,7 @@ const playlists = document.getElementById('playlist').addEventListener("click", 
 //POST --- Create a song with user-specified data
 const create = document.getElementById('create').addEventListener("click", event => {
     clearBox("content");
-    let createSongPrompt = window.prompt("Enter song info: title, artist, album, track, playlist");
+    let createSongPrompt = window.prompt("Enter song data formatted like below:", "title, artist, album, track, playlist");
     let songPromptArr = createSongPrompt.split(", ");
     let song = {
         "title": songPromptArr[0],
@@ -115,8 +115,8 @@ const create = document.getElementById('create').addEventListener("click", event
 //PATCH --- Update data for a specific song by id
 const patch = document.getElementById('update').addEventListener("click", event => {
     clearBox("content");
-    let updateSongPromptID = window.prompt("Enter song ID");
-    let updateSongPrompt = window.prompt("Enter song info: title, artist, album, track, playlist");
+    let updateSongPromptID = window.prompt("Enter song ID to edit:", "1");
+    let updateSongPrompt = window.prompt("Enter song data formatted like below:", "title, artist, album, track, playlist");
     let songPromptArr = updateSongPrompt.split(", ");
     let song = {
         "title": songPromptArr[0],

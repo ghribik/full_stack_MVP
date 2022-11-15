@@ -4,7 +4,7 @@ body {
 
 form {
   background-color: #4717F6;
-  width: 300px;
+  width: 400px;
   height: 44px;
   border-radius: 5px;
   display: flex;
@@ -28,6 +28,16 @@ button {
   color: white;
 }
 
+h1 {
+  color: white
+}
+
+li {
+  list-style-type: none;
+  background-color: whitesmoke;
+  margin-top: 10px;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -37,14 +47,14 @@ button {
   .page {
     width: 900px;
     height: 500px;
-    background-color: #E7DFDD;
+    background-color: silver;
   }
 
   .menu {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100px;
+    height: 150px;
     width: 900px;
     background-image: url("https://cdn.pixabay.com/photo/2014/04/04/14/56/background-313415_960_720.jpg");    /* Medium blue */
     background-size: contain;
@@ -53,7 +63,7 @@ button {
   .sidebar {
     float: left;
     width: 200px;
-    height: 400px;
+    height: 350px;
     background-color: #4717F6;    /* Red */
   }
   
