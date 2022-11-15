@@ -5,7 +5,6 @@ const ApiUrl = ENV == "dev" ? "http://localhost:3001" : "https://api-server-qr13
 //GET --- read and display song information for all songs or by ID
 const read = document.getElementById('read').addEventListener("click", event => {
     clearBox("content");
-    //let readSongsPrompt = window.prompt("Enter song ID or leave blank to see all songs");
     let songID = document.getElementById('songID').value;
     if(songID === ""){
         fetch(`${ApiUrl}/api/songs`)
@@ -51,7 +50,6 @@ const read = document.getElementById('read').addEventListener("click", event => 
 const playlists = document.getElementById('playlist').addEventListener("click", event => {
     clearBox("content");
     let readPlaylistsPrompt = window.prompt("Enter playlist ID");
-    console.log(readPlaylistsPrompt)
     fetch(`${ApiUrl}/api/playlists/${readPlaylistsPrompt}`)
         .then(response => response.json())
         .then(data => {
@@ -75,8 +73,6 @@ const playlists = document.getElementById('playlist').addEventListener("click", 
 //POST --- Create a song with user-specified data
 const create = document.getElementById('create').addEventListener("click", event => {
     clearBox("content");
-    //let createSongPrompt = window.prompt("Enter song data formatted like below:", "title, artist, album, track, playlist");
-    //let songPromptArr = createSongPrompt.split(", ");
     let songTitle = document.getElementById('songTitle').value;
     let songArtist = document.getElementById('songArtist').value;
     let songAlbum = document.getElementById('songAlbum').value;
@@ -125,9 +121,6 @@ const create = document.getElementById('create').addEventListener("click", event
 //PATCH --- Update data for a specific song by id
 const patch = document.getElementById('update').addEventListener("click", event => {
     clearBox("content");
-    //let updateSongPromptID = window.prompt("Enter song ID to edit:", "1");
-    //let updateSongPrompt = window.prompt("Enter song data formatted like below:", "title, artist, album, track, playlist");
-    //let songPromptArr = updateSongPrompt.split(", ");
     let songID = document.getElementById('songID').value;
     let songTitle = document.getElementById('songTitle').value;
     let songArtist = document.getElementById('songArtist').value;
@@ -150,7 +143,7 @@ const patch = document.getElementById('update').addEventListener("click", event 
     .then(response => {
         if(response.status === 201){
             let songElement = document.createElement('li');
-            songElement.innerHTML = `ID: ${updateSongPromptID}, 
+            songElement.innerHTML = `ID: ${songID}, 
             Title: ${song.title}, 
             Artist: ${song.artist}, 
             Album: ${song.album}, 
@@ -165,12 +158,15 @@ const patch = document.getElementById('update').addEventListener("click", event 
         console.error(error);
         alert("Song data parameters missing or improperly formatted!");
     })
+    let songDataFields = document.getElementsByClassName('songDataField');
+    for(let i=0; i<songDataFields.length; i++){
+        songDataFields[i].value = '';
+    }
 });
 
 //DELETE --- Delete a song from the database by id
 const deleteSong = document.getElementById('delete').addEventListener("click", event => {
     clearBox("content");
-    //let deleteSongPrompt = window.prompt("Enter song ID");
     let songID = document.getElementById('songID').value;
      fetch(`${ApiUrl}/api/songs/${songID}`, {
          method: 'DELETE',
@@ -189,17 +185,10 @@ const deleteSong = document.getElementById('delete').addEventListener("click", e
     })
  });
 
-
- function clearBox(elementID)
-{
-    document.getElementById(elementID).innerHTML = "";
-};
-
-
+//GET - Search for a song from Shazam API
 const searchButton = document.getElementById('search').addEventListener("click", event => {
     let footer = document.getElementById('footer').innerHTML = '';
     let queryInput = document.getElementById('query').value;
-    console.log(queryInput);
     event.preventDefault();
     const options = {
         method: 'GET',
@@ -208,7 +197,6 @@ const searchButton = document.getElementById('search').addEventListener("click",
             'X-RapidAPI-Host': 'shazam.p.rapidapi.com'
         }
     };
-    
     fetch(`https://shazam.p.rapidapi.com/search?term=${queryInput}&locale=en-US&offset=0&limit=6`, options)
         .then(response => response.json())
         .then(response => {
@@ -238,4 +226,10 @@ function createCard(response) {
         cardContainer.appendChild(cardTitle);
         footer.appendChild(songCard);
     };
+};
+
+
+function clearBox(elementID)
+{
+    document.getElementById(elementID).innerHTML = "";
 };
