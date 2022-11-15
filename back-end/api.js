@@ -46,6 +46,24 @@ app.get('/api/songs/:id', (req, res, next) => {
     getSongByID();
 });
 
+app.get('/api/playlists/:id', (req, res, next) => {
+    async function getPlaylistByID() {
+        try {
+            const result = await client.query(`SELECT * FROM songs, playlists
+            WHERE songs.playlist_id = playlists.id AND playlists.id = ${req.params.id}`);
+
+            if(result.rows.length === 0){
+                res.status(404).send("No songs found!");
+            }else{
+                res.status(202).send(result.rows);
+            };
+        } catch (err) {
+            next(err);
+        };
+    };
+    getPlaylistByID();
+});
+
 app.post('/api/songs/', (req, res, next) => {
     let song = req.body;
     if(song.album && song.artist && song.playlist_id && song.title && song.track_num){

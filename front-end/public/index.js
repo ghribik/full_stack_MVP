@@ -46,6 +46,31 @@ const read = document.getElementById('read').addEventListener("click", event => 
     };
 });
 
+//GET -- retrieve songs from a specific playlist by creator name
+const playlists = document.getElementById('playlist').addEventListener("click", event => {
+    clearBox("content");
+    let readPlaylistsPrompt = window.prompt("Enter playlist ID");
+    console.log(readPlaylistsPrompt)
+    fetch(`${ApiUrl}/api/playlists/${readPlaylistsPrompt}`)
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(song => {
+                let songElement = document.createElement('li')
+                songElement.innerHTML = `ID: ${song.id}, 
+                Title: ${song.title}, 
+                Artist: ${song.artist}, 
+                Album: ${song.album}, 
+                Track:${song.track_num}, 
+                Playlist: ${song.playlist_id}`;
+                content.appendChild(songElement)
+            })
+        })
+        .catch(error => {
+            console.error(error);
+            alert("Playlist ID number missing or improperly formatted!");
+        })
+})
+
 //POST --- Create a song with user-specified data
 const create = document.getElementById('create').addEventListener("click", event => {
     clearBox("content");
@@ -147,12 +172,15 @@ const deleteSong = document.getElementById('delete').addEventListener("click", e
     })
  });
 
+
  function clearBox(elementID)
 {
     document.getElementById(elementID).innerHTML = "";
-}
+};
+
 
 const searchButton = document.getElementById('search').addEventListener("click", event => {
+    let footer = document.getElementById('footer').innerHTML = '';
     let queryInput = document.getElementById('query').value;
     console.log(queryInput);
     event.preventDefault();
@@ -173,7 +201,7 @@ const searchButton = document.getElementById('search').addEventListener("click",
             createCard(response)
         })
         .catch(err => console.error(err));
-})
+});
 
 function createCard(response) {
     for(let i = 0; i < 6; i ++){
@@ -182,16 +210,15 @@ function createCard(response) {
         songCard.style.float = "left";
         let cardImg = document.createElement('img');
         cardImg.setAttribute("src", response.tracks.hits[i].track.images.coverart);
-        cardImg.setAttribute("alt", "Avatar")
+        cardImg.setAttribute("alt", "Avatar");
         cardImg.style.width= "300px";
         songCard.appendChild(cardImg);
         let cardContainer = document.createElement('div');
-        cardContainer.setAttribute("class", "container")
+        cardContainer.setAttribute("class", "container");
         songCard.appendChild(cardContainer);
         let cardTitle = document.createElement('h4');
         cardTitle.innerHTML = response.tracks.hits[i].track.share.subject;
         cardContainer.appendChild(cardTitle);
-        let footer = document.getElementById('footer');
         footer.appendChild(songCard);
     };
 };
