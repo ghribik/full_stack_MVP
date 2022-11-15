@@ -39,7 +39,9 @@ const read = document.getElementById('read').addEventListener("click", event => 
                 alert("Song data parameters missing or improperly formatted!");
             };
         })
-        .catch(err => console.error(err))
+        .catch(error => {
+            if(error.response) console.log(error.response.data);
+        })
     };
 });
 
