@@ -18,13 +18,17 @@ input {
   color: #fff;
   height: 100%;
   width: 100%;
-  padding: 6px 10px;
+  border: silver;
+  border-style: solid;
 }
 
 button {
   background-color: #A239CA;
   height: 40px;
   width: 200px;
+  border-radius: 5px;
+  border-style: ridge;
+  border-width: 7px;
   color: white;
 }
 
@@ -62,19 +66,16 @@ li {
   
   .sidebar {
     float: left;
-    width: 200px;
+    width: 180px;
     height: 350px;
-    background-color: #4717F6;    /* Red */
+    background-color: #4717F6;
+    border-style: solid;
+    border-width: 5px;
+    border-color: silver;
   }
   
   .content {
     float: left;
-  }
-  
-  #footer {
-    width: 900px;
-    height: auto;
-    background-color: white;    /* Light blue */
   }
 
   .column {
@@ -105,4 +106,14 @@ li {
   /* Add some padding inside the card container */
   .container {
     padding: 2px 16px;
+  }
+
+  #crudForm{
+    width: 900px;
+  }
+
+  #footer {
+    width: 900px;
+    height: auto;
+    background-color: white;    /* Light blue */
   }

@@ -74,14 +74,19 @@ const playlists = document.getElementById('playlist').addEventListener("click", 
 //POST --- Create a song with user-specified data
 const create = document.getElementById('create').addEventListener("click", event => {
     clearBox("content");
-    let createSongPrompt = window.prompt("Enter song data formatted like below:", "title, artist, album, track, playlist");
-    let songPromptArr = createSongPrompt.split(", ");
+    //let createSongPrompt = window.prompt("Enter song data formatted like below:", "title, artist, album, track, playlist");
+    //let songPromptArr = createSongPrompt.split(", ");
+    let songTitle = document.getElementById('songTitle').value;
+    let songArtist = document.getElementById('songArtist').value;
+    let songAlbum = document.getElementById('songAlbum').value;
+    let songTrackNum = document.getElementById('songTrackNum').value;
+    let playlistID = document.getElementById('playlistID').value;
     let song = {
-        "title": songPromptArr[0],
-        "artist": songPromptArr[1],
-        "album": songPromptArr[2],
-        "track_num": songPromptArr[3],
-        "playlist_id": songPromptArr[4]
+        "title": songTitle,
+        "artist": songArtist,
+        "album": songAlbum,
+        "track_num": songTrackNum,
+        "playlist_id": playlistID
     };
 
     fetch(`${ApiUrl}/api/songs/`, {
@@ -110,6 +115,10 @@ const create = document.getElementById('create').addEventListener("click", event
         console.error(error);
         alert("Song data parameters missing or improperly formatted!");
     })
+    let songDataFields = document.getElementsByClassName('songDataField');
+    for(let i=0; i<songDataFields.length; i++){
+        songDataFields[i].value = '';
+    }
 });
 
 //PATCH --- Update data for a specific song by id
@@ -195,7 +204,7 @@ const searchButton = document.getElementById('search').addEventListener("click",
     fetch(`https://shazam.p.rapidapi.com/search?term=${queryInput}&locale=en-US&offset=0&limit=6`, options)
         .then(response => response.json())
         .then(response => {
-            console.log(response.length);
+            console.log(response);
             console.log(response.tracks.hits[0].track.share.subject);
             console.log (response.tracks.hits[0].track.images.coverart);
             createCard(response)
