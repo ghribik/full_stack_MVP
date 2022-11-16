@@ -1,5 +1,5 @@
-const ENV = "dev";
-//const ENV = "production";
+//const ENV = "dev";
+const ENV = "production";
 const ApiUrl = ENV == "dev" ? "http://localhost:3001" : "https://api-server-qr13.onrender.com";
 
 //GET --- read and display song information for all songs or by ID
