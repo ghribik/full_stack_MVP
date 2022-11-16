@@ -40,6 +40,10 @@ li {
   list-style-type: none;
   background-color: whitesmoke;
   margin-top: 10px;
+  border: black;
+  border-style:double;
+  border-radius: 10%;
+  border-width: 5px;
 }
 
 * {
@@ -116,4 +120,9 @@ li {
     width: 900px;
     height: auto;
     background-color: white;    /* Light blue */
+  }
+
+  ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: red;
+    opacity: 1; /* Firefox */
   }

@@ -128,7 +128,6 @@ const patch = document.getElementById('update').addEventListener("click", event 
     let songTrackNum = document.getElementById('songTrackNum').value;
     let playlistID = document.getElementById('playlistID').value;
 
-
     let song = {
         "title": songTitle,
         "artist": songArtist,
@@ -152,6 +151,11 @@ const patch = document.getElementById('update').addEventListener("click", event 
     })
     .then(response => {
         if(response.status === 201){
+            for(let key in song){
+                if(song[key] === undefined){
+                    song[key] = "unchanged";       
+                };
+            };
             let songElement = document.createElement('li');
             songElement.innerHTML = `ID: ${songID}, 
             Title: ${song.title}, 
