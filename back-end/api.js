@@ -1,21 +1,20 @@
 const express = require('express');
-const cors = require('cors');
-const { Client } = require('pg');
+const app = express();
+app.use(express.json());
 
-const config = require('./config')[process.env.NODE_ENV||"dev"]
+const cors = require('cors');
+app.use(cors());
+
+const config = require('./config')[process.env.NODE_ENV||"dev"];
 const PORT = config.port;
 
+const { Client } = require('pg');
 const client = new Client({
     connectionString: config.connectionString,
 });
-
 client.connect();
 
-const app = express()
-app.use(cors());
-app.use(express.json());
-
-
+//GET --- retrieve all songs in the database
 app.get('/api/songs', (req, res, next) => {
     async function getSongs() {
         try {
@@ -28,6 +27,7 @@ app.get('/api/songs', (req, res, next) => {
     getSongs();
 });
 
+//GET --- retrieve song by ID from the database
 app.get('/api/songs/:id', (req, res, next) => {
     async function getSongByID() {
         try {
@@ -46,6 +46,7 @@ app.get('/api/songs/:id', (req, res, next) => {
     getSongByID();
 });
 
+//GET --- retrieve songs by playlist ID from the database
 app.get('/api/playlists/:id', (req, res, next) => {
     async function getPlaylistByID() {
         try {
@@ -64,6 +65,7 @@ app.get('/api/playlists/:id', (req, res, next) => {
     getPlaylistByID();
 });
 
+//POST --- add a new song entry into the database
 app.post('/api/songs/', (req, res, next) => {
     let song = req.body;
     if(song.album && song.artist && song.playlist_id && song.title && song.track_num){
@@ -80,8 +82,9 @@ app.post('/api/songs/', (req, res, next) => {
     }else{
         res.status(500).send("Format = title, artist, album, track_num, playlist_id!")
     };
-});
+}); 
 
+//PATCH --- update data for an existing song entry in the database
 app.patch('/api/songs/:id', (req, res, next) => {
     let song = req.body;
     console.log(song);
@@ -117,6 +120,7 @@ app.patch('/api/songs/:id', (req, res, next) => {
     patchSong();
 });
 
+//DELETE --- remove an existing song entry by ID from the database
 app.delete('/api/songs/:id', (req, res, next) => {
     async function deleteSong() {
         try {
@@ -136,11 +140,13 @@ app.delete('/api/songs/:id', (req, res, next) => {
     deleteSong();
 });
 
+//Error handling route
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Internal server error!');
 });
 
+//Server listening
 app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
 });

@@ -1,5 +1,5 @@
-//const ENV = "dev";
-const ENV = "production";
+const ENV = "dev";
+//const ENV = "production";
 const ApiUrl = ENV == "dev" ? "http://localhost:3001" : "https://api-server-qr13.onrender.com";
 
 //GET --- read and display song information for all songs or by ID
@@ -136,12 +136,19 @@ const patch = document.getElementById('update').addEventListener("click", event 
         "playlist_id": playlistID
     };
 
+    let updateSong = {
+        "title": songTitle,
+        "artist": songArtist,
+        "album": songAlbum,
+        "track_num": songTrackNum,
+        "playlist_id": playlistID
+    };
+
     for(let key in song){
         if(song[key] === ""){
             delete song[key];       
         };
     };
-    console.log(song);
 
     fetch(`${ApiUrl}/api/songs/${songID}`, {
         method: 'PATCH',
@@ -151,18 +158,20 @@ const patch = document.getElementById('update').addEventListener("click", event 
     })
     .then(response => {
         if(response.status === 201){
-            for(let key in song){
-                if(song[key] === undefined){
-                    song[key] = "unchanged";       
+
+            for(let key in updateSong){
+                if(updateSong[key] === ""){
+                    updateSong[key] = "---";       
                 };
             };
+
             let songElement = document.createElement('li');
             songElement.innerHTML = `ID: ${songID}, 
-            Title: ${song.title}, 
-            Artist: ${song.artist}, 
-            Album: ${song.album}, 
-            Track:${song.track_num}, 
-            Playlist: ${song.playlist_id}`;
+            Title: ${updateSong.title}, 
+            Artist: ${updateSong.artist}, 
+            Album: ${updateSong.album}, 
+            Track:${updateSong.track_num}, 
+            Playlist: ${updateSong.playlist_id}`;
             content.appendChild(songElement);
         }else{
             alert("Reading of updated song data from server failed!");
